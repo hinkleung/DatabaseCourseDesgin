@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.coursedesign.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.coursedesign.pojo.Student" >
+    <constructor >
+      <idArg column="sid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dno" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="s_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="s_birthday" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="s_pwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+
+  <resultMap id="StudentinfoMap" type="com.coursedesign.vo.student_vo.Studentinfo" >
+    <constructor >
+      <idArg column="sid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="s_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="s_birthday" jdbcType="DATE" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+
+  <resultMap id="StuInfoMap" type="com.coursedesign.vo.admin_vo.StuInfo" >
+    <constructor >
+      <arg column="sid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="s_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dno" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="s_pwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="s_birthday" jdbcType="DATE" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    sid, dno, sname, s_sex, s_birthday, s_pwd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where sid = #{sid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from student
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.coursedesign.pojo.Student" >
+    insert into student (sid, dno, sname, 
+      s_sex, s_birthday, s_pwd)
+    values (#{sid,jdbcType=VARCHAR}, #{dno,jdbcType=VARCHAR}, #{sname,jdbcType=VARCHAR}, 
+      #{sSex,jdbcType=VARCHAR}, #{sBirthday,jdbcType=DATE}, #{sPwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.coursedesign.pojo.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="dno != null" >
+        dno,
+      </if>
+      <if test="sname != null" >
+        sname,
+      </if>
+      <if test="sSex != null" >
+        s_sex,
+      </if>
+      <if test="sBirthday != null" >
+        s_birthday,
+      </if>
+      <if test="sPwd != null" >
+        s_pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="dno != null" >
+        #{dno,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null" >
+        #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="sSex != null" >
+        #{sSex,jdbcType=VARCHAR},
+      </if>
+      <if test="sBirthday != null" >
+        #{sBirthday,jdbcType=DATE},
+      </if>
+      <if test="sPwd != null" >
+        #{sPwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.coursedesign.pojo.Student" >
+    update student
+    <set >
+      <if test="dno != null" >
+        dno = #{dno,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null" >
+        sname = #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="sSex != null" >
+        s_sex = #{sSex,jdbcType=VARCHAR},
+      </if>
+      <if test="sBirthday != null" >
+        s_birthday = #{sBirthday,jdbcType=DATE},
+      </if>
+      <if test="sPwd != null" >
+        s_pwd = #{sPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.coursedesign.pojo.Student" >
+    update student
+    set dno = #{dno,jdbcType=VARCHAR},
+      sname = #{sname,jdbcType=VARCHAR},
+      s_sex = #{sSex,jdbcType=VARCHAR},
+      s_birthday = #{sBirthday,jdbcType=DATE},
+      s_pwd = #{sPwd,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="checkusername" resultType="int" parameterType="string">
+    select count(1) from student
+    where sid=#{username}
+  </select>
+
+
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from student
+    where sid = #{username} AND s_pwd = #{password}
+  </select>
+
+
+  <select id="getStudentinfo" resultMap="StudentinfoMap" parameterType="java.lang.String" >
+    select
+    sid,sname,s_sex,dname,s_birthday
+    from student,department
+    where sid = #{sid} AND student.dno=department.dno
+  </select>
+
+  <select id="getCourseStudentInfo" resultMap="StudentinfoMap" parameterType="java.lang.String" >
+    select
+    student.sid,sname,s_sex,dname,s_birthday
+    from student,department,student_course
+    where student.dno=department.dno AND student_course.sid=student.sid AND student_course.cno=#{cno}
+  </select>
+
+  <select id="selectStudentByCondition" resultMap="StudentinfoMap" parameterType="map" >
+    select
+    sid,sname,s_sex,dname,s_birthday
+    from student,department
+    <where>
+      <if test="dno != null">
+        student.dno=#{dno}
+      </if>
+      <if test="sname != null">
+        and student.sname=#{sname}
+      </if>
+      <if test="sid != null">
+        and student.sid=#{sid}
+      </if>
+       and student.dno=department.dno
+    </where>
+  </select>
+
+
+  <select id="selectStuInfoToAdmin" resultMap="StuInfoMap" parameterType="java.lang.String" >
+    select
+    sid,sname,s_sex,dname,student.dno,s_birthday,s_pwd
+    from student,department
+    where sid = #{sid} AND student.dno=department.dno
+  </select>
+
+</mapper>

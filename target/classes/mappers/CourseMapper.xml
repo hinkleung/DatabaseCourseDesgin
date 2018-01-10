@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.coursedesign.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.coursedesign.pojo.Course" >
+    <constructor >
+      <idArg column="cno" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="place" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="weektime" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="credit" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="galleryful" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="tid" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.coursedesign.pojo.Course" >
+    <constructor >
+      <idArg column="cno" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="place" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="weektime" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="credit" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="galleryful" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="tid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_desc" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="courseVoMap" type="com.coursedesign.vo.student_vo.courseVo" >
+    <constructor >
+      <arg column="cname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="place" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="weektime" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="credit" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="galleryful" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="tname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cno" jdbcType="VARCHAR" javaType="java.lang.String" />
+<!--      <arg column="grade" jdbcType="INTEGER" javaType="java.lang.Integer" />-->
+    </constructor>
+  </resultMap>
+
+  <resultMap id="CouTeaVoMap" type="com.coursedesign.vo.admin_vo.CouTeaVo" >
+    <constructor >
+      <arg column="cno" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="place" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="weektime" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="credit" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="galleryful" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tname" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    cno, cname, place, weektime, credit, galleryful, tid
+  </sql>
+  <sql id="Blob_Column_List" >
+    c_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from course
+    where cno = #{cno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from course
+    where cno = #{cno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.coursedesign.pojo.Course" >
+    insert into course (cno, cname, place, 
+      weektime, credit, galleryful, 
+      tid, c_desc)
+    values (#{cno,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, 
+      #{weektime,jdbcType=VARCHAR}, #{credit,jdbcType=INTEGER}, #{galleryful,jdbcType=INTEGER}, 
+      #{tid,jdbcType=VARCHAR}, #{cDesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.coursedesign.pojo.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cno != null" >
+        cno,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="weektime != null" >
+        weektime,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="galleryful != null" >
+        galleryful,
+      </if>
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="cDesc != null" >
+        c_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cno != null" >
+        #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="weektime != null" >
+        #{weektime,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=INTEGER},
+      </if>
+      <if test="galleryful != null" >
+        #{galleryful,jdbcType=INTEGER},
+      </if>
+      <if test="tid != null" >
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="cDesc != null" >
+        #{cDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.coursedesign.pojo.Course" >
+    update course
+    <set >
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="weektime != null" >
+        weektime = #{weektime,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=INTEGER},
+      </if>
+      <if test="galleryful != null" >
+        galleryful = #{galleryful,jdbcType=INTEGER},
+      </if>
+      <if test="tid != null" >
+        tid = #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="cDesc != null" >
+        c_desc = #{cDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cno = #{cno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.coursedesign.pojo.Course" >
+    update course
+    set cname = #{cname,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      weektime = #{weektime,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=INTEGER},
+      galleryful = #{galleryful,jdbcType=INTEGER},
+      tid = #{tid,jdbcType=VARCHAR},
+      c_desc = #{cDesc,jdbcType=LONGVARCHAR}
+    where cno = #{cno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.coursedesign.pojo.Course" >
+    update course
+    set cname = #{cname,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      weektime = #{weektime,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=INTEGER},
+      galleryful = #{galleryful,jdbcType=INTEGER},
+      tid = #{tid,jdbcType=VARCHAR}
+    where cno = #{cno,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getCanSelectCourseByStudentId" resultMap="courseVoMap" parameterType="java.lang.String" >
+    select DISTINCT
+    cname,place,weektime,credit,galleryful,tname,course.cno
+    from course,teacher,student_course
+    where teacher.tid=course.tid AND course.cno not in(
+		SELECT cno
+		from student_course
+	where sid= #{sid}
+)
+  </select>
+
+
+  <select id="getAlreadySelectCourse" resultMap="courseVoMap" parameterType="java.lang.String" >
+    select
+    cname,place,weektime,credit,galleryful,tname,course.cno
+    from course,teacher,student_course
+    where teacher.tid=course.tid AND student_course.cno=course.cno AND student_course.sid=#{sid}
+  </select>
+
+
+  <select id="getTeacherCourseList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    cno,cname,place,weektime,credit,galleryful,course.tid,c_desc
+    from course,teacher
+    where course.tid=teacher.tid AND teacher.tid=#{tid}
+  </select>
+
+
+  <select id="getCouTeaVoList" resultMap="CouTeaVoMap" parameterType="map" >
+    select
+    cno,cname,place,weektime,credit,galleryful,c_desc,course.tid,tname
+    from course,teacher
+    <where>
+      course.tid=teacher.tid
+      <if test="cname!=null">
+        AND cname=#{cname}
+      </if>
+      <if test="cno!=null">
+        and cno=#{cno}
+      </if>
+      <if test="tid!=null">
+        and course.tid=#{tid}
+      </if>
+    </where>
+  </select>
+
+</mapper>

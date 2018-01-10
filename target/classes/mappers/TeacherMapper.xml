@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.coursedesign.dao.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.coursedesign.pojo.Teacher" >
+    <constructor >
+      <idArg column="tid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="t_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="t_birthday" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="t_pwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="t_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, tname, t_sex, t_birthday, t_pwd, t_title
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from teacher
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.coursedesign.pojo.Teacher" >
+    insert into teacher (tid, tname, t_sex, 
+      t_birthday, t_pwd, t_title
+      )
+    values (#{tid,jdbcType=VARCHAR}, #{tname,jdbcType=VARCHAR}, #{tSex,jdbcType=VARCHAR}, 
+      #{tBirthday,jdbcType=DATE}, #{tPwd,jdbcType=VARCHAR}, #{tTitle,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.coursedesign.pojo.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="tname != null" >
+        tname,
+      </if>
+      <if test="tSex != null" >
+        t_sex,
+      </if>
+      <if test="tBirthday != null" >
+        t_birthday,
+      </if>
+      <if test="tPwd != null" >
+        t_pwd,
+      </if>
+      <if test="tTitle != null" >
+        t_title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null" >
+        #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tSex != null" >
+        #{tSex,jdbcType=VARCHAR},
+      </if>
+      <if test="tBirthday != null" >
+        #{tBirthday,jdbcType=DATE},
+      </if>
+      <if test="tPwd != null" >
+        #{tPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="tTitle != null" >
+        #{tTitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.coursedesign.pojo.Teacher" >
+    update teacher
+    <set >
+      <if test="tname != null" >
+        tname = #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tSex != null" >
+        t_sex = #{tSex,jdbcType=VARCHAR},
+      </if>
+      <if test="tBirthday != null" >
+        t_birthday = #{tBirthday,jdbcType=DATE},
+      </if>
+      <if test="tPwd != null" >
+        t_pwd = #{tPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="tTitle != null" >
+        t_title = #{tTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.coursedesign.pojo.Teacher" >
+    update teacher
+    set tname = #{tname,jdbcType=VARCHAR},
+      t_sex = #{tSex,jdbcType=VARCHAR},
+      t_birthday = #{tBirthday,jdbcType=DATE},
+      t_pwd = #{tPwd,jdbcType=VARCHAR},
+      t_title = #{tTitle,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="checkusername" resultType="int" parameterType="string">
+    select count(1) from teacher
+    where tid=#{username}
+  </select>
+
+
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+    where tid = #{username} AND t_pwd = #{password}
+  </select>
+
+
+  <select id="selectTeacherByCondition" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+    <where>
+      <if test="tid != null">
+        tid=#{tid}
+      </if>
+      <if test="tname != null">
+        tname=#{tname}
+      </if>
+      <if test="t_title != null">
+        t_title=#{t_title}
+      </if>
+    </where>
+  </select>
+
+
+
+  <select id="getAllTeacher" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+  </select>
+
+</mapper>

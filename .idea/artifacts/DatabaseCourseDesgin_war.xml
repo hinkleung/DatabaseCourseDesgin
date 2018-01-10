@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="DatabaseCourseDesgin:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="DatabaseCourseDesign.war">
+      <element id="artifact" artifact-name="DatabaseCourseDesgin:war exploded" />
+    </root>
+  </artifact>
+</component>

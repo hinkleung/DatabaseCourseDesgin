@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.coursedesign.dao.AdministratorMapper" >
+  <resultMap id="BaseResultMap" type="com.coursedesign.pojo.Administrator" >
+    <constructor >
+      <idArg column="aid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="aname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="a_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="a_birthday" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="a_pwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    aid, aname, a_sex, a_birthday, a_pwd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from administrator
+    where aid = #{aid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from administrator
+    where aid = #{aid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.coursedesign.pojo.Administrator" >
+    insert into administrator (aid, aname, a_sex, 
+      a_birthday, a_pwd)
+    values (#{aid,jdbcType=VARCHAR}, #{aname,jdbcType=VARCHAR}, #{aSex,jdbcType=VARCHAR}, 
+      #{aBirthday,jdbcType=DATE}, #{aPwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.coursedesign.pojo.Administrator" >
+    insert into administrator
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="aname != null" >
+        aname,
+      </if>
+      <if test="aSex != null" >
+        a_sex,
+      </if>
+      <if test="aBirthday != null" >
+        a_birthday,
+      </if>
+      <if test="aPwd != null" >
+        a_pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=VARCHAR},
+      </if>
+      <if test="aname != null" >
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="aSex != null" >
+        #{aSex,jdbcType=VARCHAR},
+      </if>
+      <if test="aBirthday != null" >
+        #{aBirthday,jdbcType=DATE},
+      </if>
+      <if test="aPwd != null" >
+        #{aPwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.coursedesign.pojo.Administrator" >
+    update administrator
+    <set >
+      <if test="aname != null" >
+        aname = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="aSex != null" >
+        a_sex = #{aSex,jdbcType=VARCHAR},
+      </if>
+      <if test="aBirthday != null" >
+        a_birthday = #{aBirthday,jdbcType=DATE},
+      </if>
+      <if test="aPwd != null" >
+        a_pwd = #{aPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.coursedesign.pojo.Administrator" >
+    update administrator
+    set aname = #{aname,jdbcType=VARCHAR},
+      a_sex = #{aSex,jdbcType=VARCHAR},
+      a_birthday = #{aBirthday,jdbcType=DATE},
+      a_pwd = #{aPwd,jdbcType=VARCHAR}
+    where aid = #{aid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="checkusername" resultType="int" parameterType="string">
+    select count(1) from administrator
+    where aid=#{username}
+  </select>
+
+
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from administrator
+    where aid = #{username} AND a_pwd = #{password}
+  </select>
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.coursedesign.dao.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.coursedesign.pojo.Department" >
+    <constructor >
+      <idArg column="dno" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dname" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.coursedesign.pojo.Department" >
+    <constructor >
+      <idArg column="dno" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_desc" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dno, dname
+  </sql>
+  <sql id="Blob_Column_List" >
+    d_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from department
+    where dno = #{dno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from department
+    where dno = #{dno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.coursedesign.pojo.Department" >
+    insert into department (dno, dname, d_desc
+      )
+    values (#{dno,jdbcType=VARCHAR}, #{dname,jdbcType=VARCHAR}, #{dDesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.coursedesign.pojo.Department" >
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dno != null" >
+        dno,
+      </if>
+      <if test="dname != null" >
+        dname,
+      </if>
+      <if test="dDesc != null" >
+        d_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dno != null" >
+        #{dno,jdbcType=VARCHAR},
+      </if>
+      <if test="dname != null" >
+        #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dDesc != null" >
+        #{dDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.coursedesign.pojo.Department" >
+    update department
+    <set >
+      <if test="dname != null" >
+        dname = #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dDesc != null" >
+        d_desc = #{dDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where dno = #{dno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.coursedesign.pojo.Department" >
+    update department
+    set dname = #{dname,jdbcType=VARCHAR},
+      d_desc = #{dDesc,jdbcType=LONGVARCHAR}
+    where dno = #{dno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.coursedesign.pojo.Department" >
+    update department
+    set dname = #{dname,jdbcType=VARCHAR}
+    where dno = #{dno,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="getAlldepartment" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from department
+  </select>
+</mapper>

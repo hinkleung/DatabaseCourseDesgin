@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="coursedesign@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+    <root id="1"/>
+    <schema id="2" parent="1" name="coursedesign">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="imooc"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="mmall_learning"/>
+    <schema id="6" parent="1" name="mysql"/>
+    <schema id="7" parent="1" name="performance_schema"/>
+    <schema id="8" parent="1" name="sakila"/>
+    <schema id="9" parent="1" name="shopping"/>
+    <schema id="10" parent="1" name="studentsystem"/>
+    <schema id="11" parent="1" name="sys"/>
+    <schema id="12" parent="1" name="t2"/>
+    <schema id="13" parent="1" name="test"/>
+    <schema id="14" parent="1" name="webshop"/>
+    <schema id="15" parent="1" name="world"/>
+    <table id="16" parent="2" name="administrator"/>
+    <table id="17" parent="2" name="course"/>
+    <table id="18" parent="2" name="department"/>
+    <table id="19" parent="2" name="student"/>
+    <table id="20" parent="2" name="student_course"/>
+    <table id="21" parent="2" name="teacher"/>
+    <view id="22" parent="2" name="student_course_info">
+      <Comment>VIEW</Comment>
+    </view>
+    <view id="23" parent="2" name="student_course_teacher_grade">
+      <Comment>VIEW</Comment>
+    </view>
+    <column id="24" parent="16" name="aid">
+      <Position>1</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="25" parent="16" name="aname">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="16" name="a_sex">
+      <Position>3</Position>
+      <DataType>varchar(2)|0</DataType>
+    </column>
+    <column id="27" parent="16" name="a_birthday">
+      <Position>4</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="28" parent="16" name="a_pwd">
+      <Position>5</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="29" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>aid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="30" parent="17" name="cno">
+      <Position>1</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="17" name="cname">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="32" parent="17" name="place">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="17" name="weektime">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="17" name="credit">
+      <Position>5</Position>
+      <DataType>int(2)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="17" name="galleryful">
+      <Position>6</Position>
+      <Comment>课程可选人数</Comment>
+      <DataType>int(4)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="17" name="c_desc">
+      <Position>7</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="37" parent="17" name="tid">
+      <Position>8</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="38" parent="17" name="course_ibfk_1">
+      <ColNames>tid</ColNames>
+    </index>
+    <key id="39" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>cno</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="40" parent="17" name="course_ibfk_2">
+      <ColNames>tid</ColNames>
+      <RefSchemaName>coursedesign</RefSchemaName>
+      <RefTableName>teacher</RefTableName>
+      <RefColNames>tid</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="41" parent="18" name="dno">
+      <Position>1</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="18" name="dname">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="18" name="d_desc">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <key id="44" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>dno</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="45" parent="19" name="sid">
+      <Position>1</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="19" name="dno">
+      <Position>2</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="19" name="sname">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="48" parent="19" name="s_sex">
+      <Position>4</Position>
+      <DataType>varchar(2)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="49" parent="19" name="s_birthday">
+      <Position>5</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="50" parent="19" name="s_pwd">
+      <Position>6</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="51" parent="19" name="student_ibfk_1">
+      <ColNames>dno</ColNames>
+    </index>
+    <key id="52" parent="19" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>sid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="53" parent="19" name="student_ibfk_1">
+      <ColNames>dno</ColNames>
+      <RefSchemaName>coursedesign</RefSchemaName>
+      <RefTableName>department</RefTableName>
+      <RefColNames>dno</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="54" parent="20" name="sid">
+      <Position>1</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="55" parent="20" name="cno">
+      <Position>2</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="20" name="grade">
+      <Position>3</Position>
+      <DataType>int(3)|0</DataType>
+    </column>
+    <index id="57" parent="20" name="student_course_ibfk_2">
+      <ColNames>cno</ColNames>
+    </index>
+    <key id="58" parent="20" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>sid
+cno</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="59" parent="20" name="student_course_ibfk_1">
+      <ColNames>sid</ColNames>
+      <RefSchemaName>coursedesign</RefSchemaName>
+      <RefTableName>student</RefTableName>
+      <RefColNames>sid</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="60" parent="20" name="student_course_ibfk_2">
+      <ColNames>cno</ColNames>
+      <RefSchemaName>coursedesign</RefSchemaName>
+      <RefTableName>course</RefTableName>
+      <RefColNames>cno</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="61" parent="21" name="tid">
+      <Position>1</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="62" parent="21" name="tname">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="63" parent="21" name="t_sex">
+      <Position>3</Position>
+      <DataType>varchar(2)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="21" name="t_birthday">
+      <Position>4</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="65" parent="21" name="t_pwd">
+      <Position>5</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="66" parent="21" name="t_title">
+      <Position>6</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <key id="67" parent="21" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>tid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="68" parent="22" name="sid">
+      <Position>1</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="69" parent="22" name="sname">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="70" parent="22" name="cname">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="71" parent="22" name="place">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="72" parent="22" name="weektime">
+      <Position>5</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="73" parent="22" name="credit">
+      <Position>6</Position>
+      <DataType>int(2)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="74" parent="22" name="c_desc">
+      <Position>7</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="75" parent="22" name="grade">
+      <Position>8</Position>
+      <DataType>int(3)|0</DataType>
+    </column>
+    <column id="76" parent="23" name="sid">
+      <Position>1</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="77" parent="23" name="sname">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="78" parent="23" name="dname">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="79" parent="23" name="s_sex">
+      <Position>4</Position>
+      <DataType>varchar(2)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="80" parent="23" name="grade">
+      <Position>5</Position>
+      <DataType>int(3)|0</DataType>
+    </column>
+    <column id="81" parent="23" name="tname">
+      <Position>6</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+  </database-model>
+</dataSource>
